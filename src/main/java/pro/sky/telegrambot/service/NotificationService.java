@@ -9,7 +9,6 @@ import pro.sky.telegrambot.repository.NotificationRepository;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.Collection;
 import java.util.Optional;
 import java.util.function.Consumer;
@@ -38,6 +37,9 @@ public class NotificationService {
         return storedTask;
     }
 
+    /*
+     * Parse method
+     */
     public Optional<NotificationTask> parse(String notificationBotMessage) {
         logger.info("Processing parse ");
         Pattern pattern = Pattern.compile(REGEX_BOT_MESSAGE);
@@ -59,6 +61,9 @@ public class NotificationService {
         return Optional.ofNullable(result);
     }
 
+    /*
+     * Notifying the user of all tasks
+     */
     public void notifyAllScheduledTasks(Consumer<NotificationTask> notifier) {
         logger.info("Processing notifyAllScheduledTasks ");
         Collection<NotificationTask> notifications = notificationRepository.getScheduledNotifications();
